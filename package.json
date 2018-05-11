@@ -1,0 +1,24 @@
+{
+  "name": "upmovie",
+  "version": "1.0.0",
+  "description": "dilushadasanayaka@gmail.com Dilusha Dasanayaka dasaCoder IA4",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dasaCoder/upMovie.git"
+  },
+  "author": "dasaCoder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dasaCoder/upMovie/issues"
+  },
+  "homepage": "https://github.com/dasaCoder/upMovie#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemon": "^1.17.4",
+    "twitter": "^1.7.1"
+  }
+}
