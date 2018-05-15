@@ -11,7 +11,7 @@ var twitter = new Twitter(config);
 
 
   var status = {
-      status: 'this is my first tweer'
+      status: 'this is my first tweer\nmy name is dilusha'
   }
   twitter.post('statuses/update',status, function(error, tweet, response) {
       if(!error) {
