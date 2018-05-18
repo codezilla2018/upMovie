@@ -15,7 +15,7 @@ let numOfPages;
 let currentPage;
 
 
-getMovies();
+//getMovies();
 
 
 // initialize twitter
@@ -43,7 +43,7 @@ function getRecentReleases(movieList) {
   for(let x= 0; x<movieList.length; x++) {
     
       if(movieList[x]['release_date'] > '2018-05-18') {
-        console.log(movieList[x]['title']);
+        getTrailer(movieList[x]['id']);
       }
 
   }
@@ -85,4 +85,24 @@ function genarateUrl(page) {
   let url =  'https://api.themoviedb.org/3/discover/movie?api_key=270ba5c916d80333b03881a53f708cb1&release_date.gte='+ minDate +'&release_date.lte='+ maxDate + '&page=' + page;
   
   return url;
+}
+
+function getTrailer(movie_id) {
+  let url2 = 'https://api.themoviedb.org/3/movie/'+ movie_id +'/videos?api_key=270ba5c916d80333b03881a53f708cb1&language=en-US';
+  let videoList;
+  axios.get(url2)
+    .then(resp=>{
+      videoList = resp.data.results;
+      //console.log(videoList);
+      
+        for(let x = 0; x < videoList.length; x++) {
+            if(videoList[x]['type'] == 'Trailer' && videoList[x]['site'] == 'YouTube') {
+             return videoList[x]['key'];
+             break;
+            }
+        }
+    })
+    .catch(err=> {
+      console.log(err.msg);
+    })
 }
