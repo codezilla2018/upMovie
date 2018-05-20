@@ -4,6 +4,8 @@ const Twitter = require('twitter');
 const https = require('https');
 const axios = require('axios');
 const config  = require('./config');
+const rp = require('request-promise');
+const fetch = require('node-fetch');
 
 // initialize express
 var app = express();
@@ -39,16 +41,24 @@ var twitter = new Twitter(config);
 
 console.log('statted');
 
-function getRecentReleases(movieList) {
+async function getRecentReleases(movieList) {
   for(let x= 0; x<movieList.length; x++) {
     let trailerUrl;
       if(movieList[x]['release_date'] > '2018-05-18') {
-        // console.log(getTrailer(movieList[x]['id']));
-        trailerUrl= getTrailer(movieList[x]['id']);
+         //console.log(movieList[x]['title']);
+        trailerUrl= await getTrailer(movieList[x]['id']);
         // console.log(trailerUrl);
+        //let url2 = 'https://api.themoviedb.org/3/movie/'+ movieList[x]['id'] +'/videos?api_key=270ba5c916d80333b03881a53f708cb1&language=en-US';
+
+        // rp(url2)
+        //   .then(resp=>{
+        //     console.log(resp.results);
+        //   })
+
+
 
         if(trailerUrl) {
-          console.log('i have traler');
+          console.log(movieList[x]['title'] + ' ' +trailerUrl);
         } else {
            console.log('i dont have trailer');
         }
@@ -64,7 +74,8 @@ function getMovies() {
       numOfPages = response.data.total_pages;
       getRecentReleases(listOfMovies);
 
-        for(let y = 2; y<=numOfPages; y++) {
+        for(let y = 1; y<=numOfPages; y++) {
+          console.log('page'+y);
           getMoviesByPage(y)
         }
       // console.log(response.data.results);
@@ -95,26 +106,40 @@ function genarateUrl(page) {
   return url;
 }
 
-function getTrailer(movie_id) {
+async function getTrailer(movie_id) {
   let url2 = 'https://api.themoviedb.org/3/movie/'+ movie_id +'/videos?api_key=270ba5c916d80333b03881a53f708cb1&language=en-US';
   let videoList;
   let key = '';
-  axios.get(url2)
-    .then(resp=>{
-      videoList = resp.data.results;
-      //console.log(videoList);
+  // axios.get(url2)
+  //   .then(resp=>{
+  //     videoList = resp.data.results;
+  //     //console.log(videoList);
       
-        for(let x = 0; x < videoList.length; x++) {
-            if(videoList[x]['type'] == 'Trailer' && videoList[x]['site'] == 'YouTube') {
-             key = videoList[x]['key'];
+  //       for(let x = 0; x < videoList.length; x++) {
+  //           if(videoList[x]['type'] == 'Trailer' && videoList[x]['site'] == 'YouTube') {
+  //            key = videoList[x]['key'];
              
-             break;
-            }
-        }console.log(key);
-        return key;
-    })
-    .catch(err=> {
-      console.log(err.msg);
-    })
+  //            break;
+  //           }
+  //       }
+  //       console.log('get Trailler'+key);
+  //       return key;
+  //   })
+  //   .catch(err=> {
+  //     console.log(err.msg);
+  //   })
+
+  const response = await fetch(url2);
+  const data = await response.json();
+  videoList = await data.results;
+
+  for(let x = 0; x < videoList.length; x++) {
+              if(videoList[x]['type'] == 'Trailer' && videoList[x]['site'] == 'YouTube') {
+               key = await videoList[x]['key'];
+               
+               break;
+              }
+          }
+          return key;
     
 }

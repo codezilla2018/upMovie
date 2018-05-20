@@ -17,9 +17,13 @@
   },
   "homepage": "https://github.com/dasaCoder/upMovie#readme",
   "dependencies": {
+    "async": "^2.6.0",
     "axios": "^0.18.0",
     "express": "^4.16.3",
+    "node-fetch": "^2.1.2",
     "nodemon": "^1.17.4",
+    "request": "^2.86.0",
+    "request-promise": "^4.2.2",
     "twitter": "^1.7.1"
   }
 }
