@@ -1,11 +1,10 @@
 // import expree
 const express = require('express');
 const Twitter = require('twitter');
-const https = require('https');
-const axios = require('axios');
 const config  = require('./config');
-const rp = require('request-promise');
 const fetch = require('node-fetch');
+const Movie = require('./movie');
+const axios = require('axios');
 
 // initialize express
 var app = express();
@@ -19,22 +18,9 @@ let currentPage;
 
 getMovies();
 
-
-// initialize twitter
-var twitter = new Twitter(config);
-
-
   var status = {
       status: 'this is my first tweer\nmy name is dilusha'+ new Date() + '#this'
   }
-//   twitter.post('statuses/update',status, function(error, tweet, response) {
-//       if(!error) {
-//           console.log(tweet);
-//       } else {
-//           console.log(error);
-//       }
-//   })
-
 
 
 // twitter.post()
@@ -58,7 +44,11 @@ async function getRecentReleases(movieList) {
 
 
         if(trailerUrl) {
+          let mv = {};
+          mv.title = movieList[x]['title'];
+          mv.trailler = trailerUrl;
           console.log(movieList[x]['title'] + ' ' +trailerUrl);
+          tweet(mv);
         } else {
            console.log('i dont have trailer');
         }
@@ -110,25 +100,7 @@ async function getTrailer(movie_id) {
   let url2 = 'https://api.themoviedb.org/3/movie/'+ movie_id +'/videos?api_key=270ba5c916d80333b03881a53f708cb1&language=en-US';
   let videoList;
   let key = '';
-  // axios.get(url2)
-  //   .then(resp=>{
-  //     videoList = resp.data.results;
-  //     //console.log(videoList);
-      
-  //       for(let x = 0; x < videoList.length; x++) {
-  //           if(videoList[x]['type'] == 'Trailer' && videoList[x]['site'] == 'YouTube') {
-  //            key = videoList[x]['key'];
-             
-  //            break;
-  //           }
-  //       }
-  //       console.log('get Trailler'+key);
-  //       return key;
-  //   })
-  //   .catch(err=> {
-  //     console.log(err.msg);
-  //   })
-
+ 
   const response = await fetch(url2);
   const data = await response.json();
   videoList = await data.results;
@@ -142,4 +114,21 @@ async function getTrailer(movie_id) {
           }
           return key;
     
+}
+
+function tweet(movie) {
+
+  //making the status
+  let status = `${movie.title}\n#upMovie #new_release \n\n Trailer: https://www.youtube.com/watch?v=${movie.trailler}`;
+  // initialize twitter
+var twitter = new Twitter(config);
+    twitter.post('statuses/update',status, function(error, tweet, response) {
+      if(!error) {
+          console.log(tweet);
+      } else {
+          console.log(error);
+      }
+  });
+
+  //twitter.post();
 }
