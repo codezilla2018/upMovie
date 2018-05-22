@@ -15,39 +15,42 @@ let listOfMovies;
 let numOfPages;
 let currentPage;
 
+var twitter = new Twitter(config);
 
 getMovies();
 
-  var status = {
-      status: 'this is my first tweer\nmy name is dilusha'+ new Date() + '#this'
-  }
+
+//   var status = {
+//       status: 'this is my first tweer\nmy name is dilusha'+ new Date() + '#this'
+//   }
+
+//   twitter.post('statuses/update',status, function(error, tweet, response) {
+//     if(!error) {
+//         console.log(tweet);
+//     } else {
+//         console.log(error);
+//     }
+// });
+
+
 
 
 // twitter.post()
 
-console.log('statted');
+//console.log('statted');
 
 async function getRecentReleases(movieList) {
   for(let x= 0; x<movieList.length; x++) {
     let trailerUrl;
-      if(movieList[x]['release_date'] > '2018-05-18') {
-         //console.log(movieList[x]['title']);
+      if(movieList[x]['release_date'] === '2018-05-25') {
+        //console.log(movieList[x]['release_date']);
         trailerUrl= await getTrailer(movieList[x]['id']);
-        // console.log(trailerUrl);
-        //let url2 = 'https://api.themoviedb.org/3/movie/'+ movieList[x]['id'] +'/videos?api_key=270ba5c916d80333b03881a53f708cb1&language=en-US';
-
-        // rp(url2)
-        //   .then(resp=>{
-        //     console.log(resp.results);
-        //   })
-
-
-
+       
         if(trailerUrl) {
           let mv = {};
           mv.title = movieList[x]['title'];
           mv.trailler = trailerUrl;
-          console.log(movieList[x]['title'] + ' ' +trailerUrl);
+          //console.log(movieList[x]['title'] + ' ' +trailerUrl);
           tweet(mv);
         } else {
            console.log('i dont have trailer');
@@ -92,7 +95,7 @@ function genarateUrl(page) {
   let minDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-'+ (date.getDate()+1);
   let maxDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-'+ (date.getDate()+2);
   let url =  'https://api.themoviedb.org/3/discover/movie?api_key=270ba5c916d80333b03881a53f708cb1&release_date.gte='+ minDate +'&release_date.lte='+ maxDate + '&page=' + page;
-  
+  //console.log(url);
   return url;
 }
 
@@ -117,11 +120,14 @@ async function getTrailer(movie_id) {
 }
 
 function tweet(movie) {
-
+//console.log(movie);
   //making the status
-  let status = `${movie.title}\n#upMovie #new_release \n\n Trailer: https://www.youtube.com/watch?v=${movie.trailler}`;
+  var status = {
+    status: `${movie.title}\n#upMovie #new_release\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+}
+  //console.log(status);
   // initialize twitter
-var twitter = new Twitter(config);
+  
     twitter.post('statuses/update',status, function(error, tweet, response) {
       if(!error) {
           console.log(tweet);
