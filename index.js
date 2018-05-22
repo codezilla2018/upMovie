@@ -41,9 +41,17 @@ getMovies();
 
 async function getRecentReleases(movieList) {
   for(let x= 0; x<movieList.length; x++) {
+    let date = new Date();
+    let month = date.getMonth() +1;
+    if (month <10){
+      month = '0' + month;
+    }
+    date = date.getFullYear() + '-' + month + '-'+ (date.getDate()+1);
+    //console.log(date.valueOf());
+    //console.log(movieList[x]['release_date']);
     let trailerUrl;
-      if(movieList[x]['release_date'] === '2018-05-25') {
-        //console.log(movieList[x]['release_date']);
+      if(movieList[x]['release_date'] == date ) {
+        
         trailerUrl= await getTrailer(movieList[x]['id']);
        
         if(trailerUrl) {
@@ -55,6 +63,8 @@ async function getRecentReleases(movieList) {
         } else {
            console.log('i dont have trailer');
         }
+      } else{
+        //console.log(date);
       }
 
   }
@@ -122,11 +132,11 @@ async function getTrailer(movie_id) {
 function tweet(movie) {
 //console.log(movie);
   //making the status
+  let title = movie.title.replace(/ /g,"_");
   var status = {
-    status: `${movie.title}\n#upMovie #new_release\nhttps://www.youtube.com/watch?v=${movie.trailler}`
-}
+    status: `${movie.title}\n #${title} #upMovie #new_release\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+  }
   //console.log(status);
-  // initialize twitter
   
     twitter.post('statuses/update',status, function(error, tweet, response) {
       if(!error) {
