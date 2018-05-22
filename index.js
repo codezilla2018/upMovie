@@ -11,34 +11,13 @@ var app = express();
 
 
 
-let listOfMovies;
-let numOfPages;
-let currentPage;
+let listOfMovies; // this will keep the list of movies
+let numOfPages;  // holds the value of result pages
+let currentPage; // hold the value of current page
 
-var twitter = new Twitter(config);
+var twitter = new Twitter(config); // initialize twitter
 
-getMovies();
-
-
-//   var status = {
-//       status: 'this is my first tweer\nmy name is dilusha'+ new Date() + '#this'
-//   }
-
-//   twitter.post('statuses/update',status, function(error, tweet, response) {
-//     if(!error) {
-//         console.log(tweet);
-//     } else {
-//         console.log(error);
-//     }
-// });
-
-
-
-
-// twitter.post()
-
-//console.log('statted');
-
+// further filter recent movies from api result
 async function getRecentReleases(movieList) {
   for(let x= 0; x<movieList.length; x++) {
     let date = new Date();
@@ -70,6 +49,7 @@ async function getRecentReleases(movieList) {
   }
 }
 
+// get list of movies 
 function getMovies() {
   axios.get(genarateUrl(1))
     .then(response => {
@@ -88,6 +68,7 @@ function getMovies() {
     });
 }
 
+// get list of movies of given page
 function getMoviesByPage(page) {
   axios.get(genarateUrl(page))
     .then( response => {
@@ -100,6 +81,7 @@ function getMoviesByPage(page) {
     })
 }
 
+// genarate url from current date
 function genarateUrl(page) {
   let date = new Date();
   let minDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-'+ (date.getDate()+1);
@@ -109,6 +91,7 @@ function genarateUrl(page) {
   return url;
 }
 
+// get trailler url for given movie
 async function getTrailer(movie_id) {
   let url2 = 'https://api.themoviedb.org/3/movie/'+ movie_id +'/videos?api_key=270ba5c916d80333b03881a53f708cb1&language=en-US';
   let videoList;
@@ -129,8 +112,8 @@ async function getTrailer(movie_id) {
     
 }
 
+// tweet on given movie
 function tweet(movie) {
-//console.log(movie);
   //making the status
   let title = movie.title.replace(/ /g,"_");
   var status = {
