@@ -5,6 +5,7 @@ const config  = require('./config');
 const fetch = require('node-fetch');
 const Movie = require('./movie');
 const axios = require('axios');
+const sheduler = require('node-schedule');
 
 // initialize express
 var app = express();
@@ -16,6 +17,14 @@ let numOfPages;  // holds the value of result pages
 let currentPage; // hold the value of current page
 
 var twitter = new Twitter(config); // initialize twitter
+
+var schedule = require('node-schedule');
+
+schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every day
+  getMovies();
+})
+
+//getMovies();
 
 // further filter recent movies from api result
 async function getRecentReleases(movieList) {
@@ -40,7 +49,7 @@ async function getRecentReleases(movieList) {
           //console.log(movieList[x]['title'] + ' ' +trailerUrl);
           tweet(mv);
         } else {
-           console.log('i dont have trailer');
+           console.log(movieList[x]['title'] + ' I dont have trailer');
         }
       } else{
         //console.log(date);
