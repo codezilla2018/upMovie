@@ -1,11 +1,14 @@
 # upMovie
+This is nodejs based bot which tweets about newly released movies
 
-### Setup
 
-Get consumer key and access token
+# Configuration
+*visit https://apps.twitter.com/ and get consumer key and access token
+*Edit config.js file according to your credentials
 
-Create a twitte app here :- https://apps.twitter.com/ 
+# Contributions
+*We expecting to implement Regional film release method.
 
-edit config.js file according to your details
 
 dilushadasanayaka@gmail.com Dilusha Dasanayaka dasaCoder IA4
+
