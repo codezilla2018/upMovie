@@ -20,12 +20,19 @@ var twitter = new Twitter(config); // initialize twitter
 
 var schedule = require('node-schedule');
 
-schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every day
-  getMovies();
-})
+const port = 3000;
+
 
 app.get('/', (req,res)=>{
-  res.send("home page");
+  res.send("home pagekk");
+});
+
+app.listen(port, ()=>{
+  console.log('server start on port '+ port);
+});
+
+schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every day
+  getMovies();
 })
 
 // further filter recent movies from api result
