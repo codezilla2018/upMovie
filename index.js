@@ -20,7 +20,7 @@ var twitter = new Twitter(config); // initialize twitter
 
 var schedule = require('node-schedule');
 
-const port = 3000;
+const port = 8000;
 
 
 app.get('/', (req,res)=>{
