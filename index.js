@@ -20,7 +20,7 @@ var twitter = new Twitter(config); // initialize twitter
 
 var schedule = require('node-schedule');
 
-schedule.scheduleJob('5 17 * * *', ()=> { // call get method at 09.03H for every day
+schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every day
   getMovies();
 })
 
