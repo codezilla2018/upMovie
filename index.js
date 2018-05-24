@@ -20,21 +20,8 @@ var twitter = new Twitter(config); // initialize twitter
 
 var schedule = require('node-schedule');
 
-// const port = 8000;
-console.log(new Date());
 
-// app.get('/', (req,res)=>{
-//   res.send("home pagekk");
-// });
-
-// app.listen(port, ()=>{
-//   console.log('server start on port '+ port);
-// });
-
-//getMovies();
-
-schedule.scheduleJob('57 15 * * *', ()=> { // call get method at 09.03H for every day
-  //console.log('my time is set');
+schedule.scheduleJob('1 9 * * *', ()=> { // call get method at 09.0H for every day (Time is on UTC)
    getMovies();
 })
 
@@ -140,10 +127,10 @@ function tweet(movie) {
   //making the status
   let title = movie.title.replace(/ /g,"_");
   var status = {
-    status: `Film: ${movie.title}\n #${title} test #upMovie #new_release #2k18 #codezilla2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+    status: `${movie.title}\n #${title} #upMovie #new_release #2k18 #codezilla2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
   }
-  //console.log(status);
-  
+
+  // post on twitter
     twitter.post('statuses/update',status, function(error, tweet, response) {
       if(!error) {
           console.log(tweet);
@@ -152,5 +139,4 @@ function tweet(movie) {
       }
   });
 
-  //twitter.post();
 }
