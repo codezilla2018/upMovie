@@ -20,7 +20,7 @@ var twitter = new Twitter(config); // initialize twitter
 
 var schedule = require('node-schedule');
 
-schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every day
+schedule.scheduleJob('5 17 * * *', ()=> { // call get method at 09.03H for every day
   getMovies();
 })
 
@@ -109,24 +109,26 @@ async function getTrailer(movie_id) {
   const response = await fetch(url2);
   const data = await response.json();
   videoList = await data.results;
+  if(videoList) {
+    for(let x = 0; x < videoList.length; x++) {
+      if(videoList[x]['type'] == 'Trailer' && videoList[x]['site'] == 'YouTube') {
+       key = await videoList[x]['key'];
+       
+       break;
+      }
+  }
+  return key;
 
-  for(let x = 0; x < videoList.length; x++) {
-              if(videoList[x]['type'] == 'Trailer' && videoList[x]['site'] == 'YouTube') {
-               key = await videoList[x]['key'];
-               
-               break;
-              }
-          }
-          return key;
-    
 }
+  }
+  
 
 // tweet on given movie
 function tweet(movie) {
   //making the status
   let title = movie.title.replace(/ /g,"_");
   var status = {
-    status: `${movie.title}\n #${title} #upMovie #new_release\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+    status: `${movie.title}\n #${title} #upMovie #new_release #2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
   }
   //console.log(status);
   
