@@ -21,7 +21,7 @@ var twitter = new Twitter(config); // initialize twitter
 var schedule = require('node-schedule');
 
 // const port = 8000;
-console.log('test2');
+console.log(new Date());
 
 // app.get('/', (req,res)=>{
 //   res.send("home pagekk");
@@ -31,7 +31,7 @@ console.log('test2');
 //   console.log('server start on port '+ port);
 // });
 
-getMovies();
+//getMovies();
 
 // schedule.scheduleJob('43 15 * * *', ()=> { // call get method at 09.03H for every day
 //   console.log('my time is set');
