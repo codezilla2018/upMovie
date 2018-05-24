@@ -1,0 +1,5 @@
+{
+  "name": "upMovie",
+  "description": "Autmated bot which tweets about newly released movies",
+  "keywords": ["node", "express", "heroku"]
+}
