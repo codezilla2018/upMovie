@@ -33,7 +33,7 @@ console.log(new Date());
 
 //getMovies();
 
-schedule.scheduleJob('49 15 * * *', ()=> { // call get method at 09.03H for every day
+schedule.scheduleJob('54 15 * * *', ()=> { // call get method at 09.03H for every day
   console.log('my time is set');
   //getMovies();
 })
