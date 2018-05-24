@@ -24,7 +24,9 @@ schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every 
   getMovies();
 })
 
-//getMovies();
+app.get('/', (req,res)=>{
+  res.send("home page");
+})
 
 // further filter recent movies from api result
 async function getRecentReleases(movieList) {
