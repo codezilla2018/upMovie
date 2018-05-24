@@ -33,9 +33,9 @@ console.log(new Date());
 
 //getMovies();
 
-schedule.scheduleJob('54 15 * * *', ()=> { // call get method at 09.03H for every day
-  console.log('my time is set');
-  //getMovies();
+schedule.scheduleJob('57 15 * * *', ()=> { // call get method at 09.03H for every day
+  //console.log('my time is set');
+   getMovies();
 })
 
 // further filter recent movies from api result
@@ -140,7 +140,7 @@ function tweet(movie) {
   //making the status
   let title = movie.title.replace(/ /g,"_");
   var status = {
-    status: `${movie.title}\n #${title} test #upMovie #new_release #2k18 #codezilla2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+    status: `Film: ${movie.title}\n #${title} test #upMovie #new_release #2k18 #codezilla2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
   }
   //console.log(status);
   
