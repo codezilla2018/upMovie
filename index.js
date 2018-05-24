@@ -31,10 +31,12 @@ console.log('test2');
 //   console.log('server start on port '+ port);
 // });
 
-schedule.scheduleJob('43 15 * * *', ()=> { // call get method at 09.03H for every day
-  console.log('my time is set');
-  getMovies();
-})
+getMovies();
+
+// schedule.scheduleJob('43 15 * * *', ()=> { // call get method at 09.03H for every day
+//   console.log('my time is set');
+//   getMovies();
+// })
 
 // further filter recent movies from api result
 async function getRecentReleases(movieList) {
