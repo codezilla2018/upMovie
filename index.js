@@ -1,7 +1,8 @@
 // import expree
 const express = require('express');
 const Twitter = require('twitter');
-const config  = require('./config');
+const config  = require('./config/twitter');
+const tmdbconfig = require('./config/tmdb');
 const fetch = require('node-fetch');
 const Movie = require('./movie');
 const axios = require('axios');
@@ -9,7 +10,6 @@ const sheduler = require('node-schedule');
 
 // initialize express
 var app = express();
-
 
 
 let listOfMovies; // this will keep the list of movies
@@ -95,14 +95,14 @@ function genarateUrl(page) {
   let date = new Date();
   let minDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-'+ (date.getDate()+1);
   let maxDate = date.getFullYear() + '-' + (date.getMonth()+1) + '-'+ (date.getDate()+2);
-  let url =  'https://api.themoviedb.org/3/discover/movie?api_key=270ba5c916d80333b03881a53f708cb1&release_date.gte='+ minDate +'&release_date.lte='+ maxDate + '&page=' + page;
+  let url =  `https://api.themoviedb.org/3/discover/movie?api_key=${tmdbconfig}&release_date.gte=`+ minDate +'&release_date.lte='+ maxDate + '&page=' + page;
   //console.log(url);
   return url;
 }
 
 // get trailler url for given movie
 async function getTrailer(movie_id) {
-  let url2 = 'https://api.themoviedb.org/3/movie/'+ movie_id +'/videos?api_key=270ba5c916d80333b03881a53f708cb1&language=en-US';
+  let url2 = `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=${tmdbconfig}&language=en-US`;
   let videoList;
   let key = '';
  
