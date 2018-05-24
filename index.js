@@ -20,11 +20,10 @@ var twitter = new Twitter(config); // initialize twitter
 
 var schedule = require('node-schedule');
 
-schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every day
-  getMovies();
-})
 
-//getMovies();
+schedule.scheduleJob('1 9 * * *', ()=> { // call get method at 09.0H for every day (Time is on UTC)
+   getMovies();
+})
 
 // further filter recent movies from api result
 async function getRecentReleases(movieList) {
@@ -128,10 +127,10 @@ function tweet(movie) {
   //making the status
   let title = movie.title.replace(/ /g,"_");
   var status = {
-    status: `${movie.title}\n #${title} #upMovie #new_release #2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+    status: `${movie.title}\n #${title} #upMovie #new_release #2k18 #codezilla2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
   }
-  //console.log(status);
-  
+
+  // post on twitter
     twitter.post('statuses/update',status, function(error, tweet, response) {
       if(!error) {
           console.log(tweet);
@@ -140,5 +139,4 @@ function tweet(movie) {
       }
   });
 
-  //twitter.post();
 }
