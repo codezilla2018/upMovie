@@ -23,15 +23,15 @@ var schedule = require('node-schedule');
 const port = 8000;
 
 
-app.get('/', (req,res)=>{
-  res.send("home pagekk");
-});
+// app.get('/', (req,res)=>{
+//   res.send("home pagekk");
+// });
 
-app.listen(port, ()=>{
-  console.log('server start on port '+ port);
-});
+// app.listen(port, ()=>{
+//   console.log('server start on port '+ port);
+// });
 
-schedule.scheduleJob('12 20 * * *', ()=> { // call get method at 09.03H for every day
+schedule.scheduleJob('16 20 * * *', ()=> { // call get method at 09.03H for every day
   getMovies();
 })
 
@@ -137,7 +137,7 @@ function tweet(movie) {
   //making the status
   let title = movie.title.replace(/ /g,"_");
   var status = {
-    status: `${movie.title}\n #${title} #upMovie #new_release #2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+    status: `${movie.title}\n #${title} #upMovie #new_release #2k18 #codezilla\nhttps://www.youtube.com/watch?v=${movie.trailler}`
   }
   //console.log(status);
   
