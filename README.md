@@ -3,6 +3,9 @@ This is nodejs based bot which tweets about newly released movies
 ### Subscribe
 Type "Follow upMovie2k18" and send to 40404
 
+### Demo 
+Instance of app is currently runs on Heroku. View the twitter page: https://twitter.com/upMovie2k18
+
 ### Configuration
 - visit https://apps.twitter.com/ and get consumer key and access token
 - Edit config/twitter.js file according to your credentials
