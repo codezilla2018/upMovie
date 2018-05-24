@@ -69,6 +69,7 @@ async function getRecentReleases(movieList) {
 
 // get list of movies 
 function getMovies() {
+  console.log('hi');
   axios.get(genarateUrl(1))
     .then(response => {
       listOfMovies = response.data.results;
