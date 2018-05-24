@@ -31,7 +31,7 @@ console.log('test');
 //   console.log('server start on port '+ port);
 // });
 
-schedule.scheduleJob('17 20 * * *', ()=> { // call get method at 09.03H for every day
+schedule.scheduleJob('40 20 * * *', ()=> { // call get method at 09.03H for every day
   getMovies();
 })
 
