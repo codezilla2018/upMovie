@@ -31,7 +31,7 @@ console.log('test');
 //   console.log('server start on port '+ port);
 // });
 
-schedule.scheduleJob('17 15 * * *', ()=> { // call get method at 09.03H for every day
+schedule.scheduleJob('20 15 * * *', ()=> { // call get method at 09.03H for every day
   getMovies();
 })
 
@@ -137,7 +137,7 @@ function tweet(movie) {
   //making the status
   let title = movie.title.replace(/ /g,"_");
   var status = {
-    status: `${movie.title}\n #${title} #upMovie #new_release #2k18 #codezilla2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
+    status: `${movie.title}\n #${title} test #upMovie #new_release #2k18 #codezilla2k18\nhttps://www.youtube.com/watch?v=${movie.trailler}`
   }
   //console.log(status);
   
