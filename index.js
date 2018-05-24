@@ -31,7 +31,7 @@ app.listen(port, ()=>{
   console.log('server start on port '+ port);
 });
 
-schedule.scheduleJob('3 9 * * *', ()=> { // call get method at 09.03H for every day
+schedule.scheduleJob('12 20 * * *', ()=> { // call get method at 09.03H for every day
   getMovies();
 })
 
